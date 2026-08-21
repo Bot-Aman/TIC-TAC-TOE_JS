@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-toe-game</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A responsive two-player Tic-Tac-Toe game built with HTML, CSS and JavaScript.">
+  <title>Tic-Tac-Toe | Aman Saini</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="msg-container hide">
-        <p id=msg>winner is :</p>
-        <button id="new-btn">New game</button>
+  <main>
+    <section class="game-header" aria-labelledby="game-title">
+      <p class="eyebrow">JavaScript Game</p>
+      <h1 id="game-title">Tic-Tac-Toe</h1>
+      <p class="status" aria-live="polite">Player O starts</p>
+    </section>
 
-    </div>
+    <section class="game" aria-label="Tic-Tac-Toe board">
+      <button class="box" aria-label="Cell 1"></button>
+      <button class="box" aria-label="Cell 2"></button>
+      <button class="box" aria-label="Cell 3"></button>
+      <button class="box" aria-label="Cell 4"></button>
+      <button class="box" aria-label="Cell 5"></button>
+      <button class="box" aria-label="Cell 6"></button>
+      <button class="box" aria-label="Cell 7"></button>
+      <button class="box" aria-label="Cell 8"></button>
+      <button class="box" aria-label="Cell 9"></button>
+    </section>
 
-    <main>
-        <h1 style="font-size: 5rem;"><u><b>TIC TOC TOE</u></b></h1>
-        <div class="container">
-            <div class="game">
+    <section class="controls">
+      <button id="reset-btn" type="button">Reset Game</button>
+      <button id="new-btn" type="button">New Game</button>
+    </section>
 
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-            </div>
-        </div>
-        <button id="reset-btn">Reset game</button>
-    </main>
-    <script src="app.js" defer></script>
+    <p class="result" id="msg" aria-live="assertive"></p>
+  </main>
+  <script src="app.js" defer></script>
 </body>
-
 </html>
