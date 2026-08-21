@@ -1,10 +1,11 @@
 const boxes = document.querySelectorAll('.box');
 const resetBtn = document.querySelector('#reset-btn');
 const newGameBtn = document.querySelector('#new-btn');
-const msgContainer = document.querySelector('.msg-container');
-const msg = document.querySelector('#msg');
+const status = document.querySelector('.status');
+const result = document.querySelector('#msg');
 
 let turnO = true;
+let gameOver = false;
 
 const winPatterns = [
   [0, 1, 2],
@@ -19,61 +20,52 @@ const winPatterns = [
 
 const resetGame = () => {
   turnO = true;
+  gameOver = false;
   boxes.forEach((box) => {
     box.disabled = false;
     box.textContent = '';
   });
-  msgContainer.classList.add('hide');
+  status.textContent = 'Player O starts';
+  result.textContent = '';
 };
 
-const disableBoxes = () => {
+const finishGame = (message) => {
+  gameOver = true;
   boxes.forEach((box) => {
     box.disabled = true;
   });
-};
-
-const showWinner = (winner) => {
-  msg.textContent = `Congratulations! ${winner} wins.`;
-  msgContainer.classList.remove('hide');
-  disableBoxes();
-};
-
-const showDraw = () => {
-  msg.textContent = 'Game is a draw.';
-  msgContainer.classList.remove('hide');
-  disableBoxes();
+  status.textContent = message;
+  result.textContent = message;
 };
 
 const checkWinner = () => {
-  for (const pattern of winPatterns) {
-    const [a, b, c] = pattern;
-    const first = boxes[a].textContent;
-    const second = boxes[b].textContent;
-    const third = boxes[c].textContent;
-
-    if (first && first === second && second === third) {
-      showWinner(first);
-      return true;
+  for (const [a, b, c] of winPatterns) {
+    const value = boxes[a].textContent;
+    if (value && value === boxes[b].textContent && value === boxes[c].textContent) {
+      finishGame(`Congratulations! Player ${value} wins.`);
+      return;
     }
   }
 
-  const isDraw = [...boxes].every((box) => box.textContent !== '');
-  if (isDraw) {
-    showDraw();
-    return true;
+  if ([...boxes].every((box) => box.textContent !== '')) {
+    finishGame("It's a draw.");
+    return;
   }
 
-  return false;
+  status.textContent = `Player ${turnO ? 'O' : 'X'}'s turn`;
 };
 
 boxes.forEach((box) => {
   box.addEventListener('click', () => {
-    box.textContent = turnO ? 'O' : 'X';
+    if (gameOver || box.textContent) return;
+
+    const player = turnO ? 'O' : 'X';
+    box.textContent = player;
     box.disabled = true;
     turnO = !turnO;
     checkWinner();
   });
 });
 
-newGameBtn.addEventListener('click', resetGame);
 resetBtn.addEventListener('click', resetGame);
+newGameBtn.addEventListener('click', resetGame);
